@@ -1,0 +1,137 @@
+:root {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-size: clamp(16px, 2vw, 24px);
+    line-height: 1.6;
+
+    --container-offset: 60px;
+    --color-border: white;
+}
+
+h2 {
+    font-size: 1.1em;
+}
+
+pre {
+    overflow: visible;
+    border: 2px solid;
+    position: relative;
+}
+
+pre, code {
+    font-family: monospace, monospace;
+    padding: 4px;
+}
+
+pre code {
+    overflow: scroll;
+    display: block;
+    max-width: 100%;
+
+    --bg: white;
+    --sh: rgb(239, 239, 239);
+
+    --trans: #ffff;
+
+    background-image:
+            linear-gradient(to right, var(--bg) 25px, var(--trans) 35px),
+            linear-gradient(to left, var(--bg) 25px, var(--trans) 35px),
+            radial-gradient(farthest-side at 0 50%, var(--sh), var(--trans)),
+            radial-gradient(farthest-side at 100% 50%, var(--sh), var(--trans));
+    background-size: 100% 100%, 100% 100%, 20px 100%, 20px 100%;
+    background-position: 50% 0%, 100% 50%, 0% 0%, 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: local, local, scroll, scroll;
+}
+
+pre code::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: -1em;
+    left: 0.5em;
+    display: block;
+    background-color: Canvas;
+    font-size: 0.75em;
+}
+
+footer, header {
+    margin: 40px 0;
+}
+
+td, th {
+    border: 2px solid;
+    padding: 5px;
+}
+
+table {
+    border-collapse: collapse;
+    max-width: 100%;
+    overflow: scroll;
+    display: block;
+}
+
+.NoVisibleWithStyle {
+    display: none;
+}
+
+@media print {
+    footer, header {
+        display: none;
+    }
+
+    :root {
+        font-size: initial;
+    }
+
+    body {
+        width: auto;
+    }
+
+    a {
+        color: CanvasText;
+    }
+}
+
+iframe {
+    width: 100%;
+}
+
+img {
+    width: 100%;
+    height: initial;
+}
+
+blockquote {
+    border-inline-start: 2px solid;
+    margin-inline-start: 0;
+    padding-inline-start: 0.5em;
+}
+
+@media (prefers-color-scheme: dark) {
+    a {
+        color: rgb(158, 158, 255);
+    }
+    a:visited {
+        color: rgb(208, 173, 240);
+    }
+    pre code {
+        --bg: rgb(18, 18, 18);
+        --sh: rgb(107, 107, 107);
+        --trans: #000f;
+    }
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+}
+
+.page-container {
+    width: 100%;
+    max-width: calc(100% - var(--container-offset) * 2);
+    margin: 0 auto;
+}
