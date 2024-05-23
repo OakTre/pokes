@@ -3,18 +3,17 @@ import { usePokeListStore } from '../store/usePokeListStore'
 import { onMounted } from 'vue'
 import PokeCard from './PokeCard.vue'
 
-const store = usePokeListStore()
+const pokeStore = usePokeListStore()
 
-onMounted(() => {
-    store.getPokemons()
+onMounted( async () => {
+    await pokeStore.getPokemons()
 })
 </script>
 
 <template>
-    <span v-if="store.isLoading" >Загрузка....</span>
-    <ul v-else class="poke-list">
+    <ul class="poke-list">
         <li
-            v-for="poke in store.list"
+            v-for="poke in pokeStore.list"
             :key="poke.name"
             class="poke-list__item"
         >

@@ -8,7 +8,7 @@ export const usePokeListStore = defineStore('pokeList', () => {
     const list = ref<IPokemon[]>([])
     const isLoading = ref<boolean>(false)
 
-    const getPokemons = async () => {
+    async function getPokemons():Promise<void>{
         isLoading.value = true
 
        try {
@@ -20,7 +20,6 @@ export const usePokeListStore = defineStore('pokeList', () => {
        } finally {
             isLoading.value = false
        }
-
     }
 
     return { list, isLoading, getPokemons }

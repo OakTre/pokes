@@ -1,35 +1,29 @@
 <script setup lang="ts">
 import { usePokeInfoStore } from '../store/usePokeInfoStore'
-import { watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, onMounted} from 'vue'
 
-const route = useRoute()
-const store = usePokeInfoStore()
-const pokeName = route.params.name as string
+const pokeInfoStore = usePokeInfoStore()
+const info = computed(() => pokeInfoStore.info)
 
-watch(() => pokeName, () => {
-    store.getInfo(pokeName)
-}, { immediate: true })
+onMounted(async () => {
+    await pokeInfoStore.getPokemonInfo()
+})
 </script>
 
 <template>
-    <span v-if="store.isLoading" >Загрузка...</span>
-    <div
-        v-else
-        class="card"
-    >
+    <div class="card">
         <img
-            :src="`https://img.pokemondb.net/artwork/${store.info.name}.jpg`"
-            :alt="store.info.name"
+            :src="`https://img.pokemondb.net/artwork/${info.name}.jpg`"
+            :alt="info.name"
             class="card__img"
         >
         <div class="card__info">
             <h3 class="card__name">
-                {{ store.info.name }}
+                {{ info.name }}
             </h3>
             <ul class="card__list">
                 <li class="card__list-item">
-                    weight: {{ store.info.weight }}
+                    weight: {{ info.weight }}
                 </li>
             </ul>
         </div>

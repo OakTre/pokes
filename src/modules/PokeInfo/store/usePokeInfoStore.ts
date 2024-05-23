@@ -1,18 +1,21 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useRoute } from 'vue-router'
+import type { RouteLocationNormalizedLoaded } from "vue-router";
 import type { IPokeInfo } from '../types/IPokeInfo'
 import PokemonsService from '../api/PokeInfoService'
 
 
-export const usePokeInfoStore = defineStore('pokeList', () => {
+export const usePokeInfoStore = defineStore('pokeInfo', () => {
     const info = ref<IPokeInfo>({})
     const isLoading = ref<boolean>(false)
+    const route: RouteLocationNormalizedLoaded = useRoute()
 
-    const getInfo = async (pokeName: string) => {
+    async function getPokemonInfo():Promise<void> {
         isLoading.value = true
 
         try {
-            const { data } = await PokemonsService.getInfo(pokeName)
+            const { data } = await PokemonsService.getInfo(route.params.name as string)
 
             info.value = data
         } catch (error) {
@@ -20,8 +23,7 @@ export const usePokeInfoStore = defineStore('pokeList', () => {
         } finally {
             isLoading.value = false
         }
-
     }
 
-    return { info, isLoading, getInfo }
+    return { info, isLoading, getPokemonInfo }
 })
