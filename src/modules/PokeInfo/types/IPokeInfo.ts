@@ -9,7 +9,7 @@ export interface IPokeInfo {
             url: string
         }
     }[],
-    base_experience?: string 
+    base_experience?: string,
     types: [],
     stats: {
         base_stat: number,
