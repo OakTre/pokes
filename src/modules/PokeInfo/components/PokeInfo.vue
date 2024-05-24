@@ -4,6 +4,7 @@ import { computed, onMounted} from 'vue'
 
 const pokeInfoStore = usePokeInfoStore()
 const info = computed(() => pokeInfoStore.info)
+const isLoading = computed(() => pokeInfoStore.isLoading)
 
 onMounted(async () => {
     await pokeInfoStore.getPokemonInfo()
@@ -11,7 +12,8 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="card">
+    <span v-if="isLoading" >Загрузка...</span>
+    <div v-else class="card">
         <img
             :src="`https://img.pokemondb.net/artwork/${info.name}.jpg`"
             :alt="info.name"
@@ -23,7 +25,27 @@ onMounted(async () => {
             </h3>
             <ul class="card__list">
                 <li class="card__list-item">
-                    weight: {{ info.weight }}
+                    Вес: {{ info.weight }}
+                </li>
+                <li class="card__list-item">
+                    Рост: {{ info.height }}
+                </li>
+                <li class="card__list-item">
+                   Способности: {{ info.abilities }}
+                </li>
+                <li class="card__list-item">
+                    Показатели:
+                    <ul>
+                        <li
+                            v-for="stat in info.stats"
+                            :key="stat.name"
+                        >
+                            {{ stat.name }}: {{ stat.level }}
+                        </li>
+                    </ul>
+                </li>
+                <li class="card__list-item">
+                    Артефакты: {{ info.items }}
                 </li>
             </ul>
         </div>
@@ -48,6 +70,9 @@ onMounted(async () => {
 
 .card__list {
     margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .card__list-item {
@@ -64,5 +89,12 @@ onMounted(async () => {
     background: currentColor;
     border-radius: 50%;
     content: "";
+}
+
+.card__list-item ul {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 10px 0;
 }
 </style>

@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import type { RouteLocationNormalizedLoaded } from "vue-router";
 import type { IPokeInfo } from '../types/IPokeInfo'
 import PokemonsService from '../api/PokeInfoService'
+import mapPokeInfo from '../helpers/mapPokeInfo'
 
 
 export const usePokeInfoStore = defineStore('pokeInfo', () => {
@@ -17,7 +18,7 @@ export const usePokeInfoStore = defineStore('pokeInfo', () => {
         try {
             const { data } = await PokemonsService.getInfo(route.params.name as string)
 
-            info.value = data
+            info.value = mapPokeInfo(data)
         } catch (error) {
             alert('Произошла ошибка')
         } finally {
