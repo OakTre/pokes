@@ -45,7 +45,7 @@ onMounted(async () => {
                     </ul>
                 </li>
                 <li class="card__list-item">
-                    Артефакты: {{ info.items }}
+                    Артефакты: {{ info.items || 'Отсутствуют' }}
                 </li>
             </ul>
         </div>

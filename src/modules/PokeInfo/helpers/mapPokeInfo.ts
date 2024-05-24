@@ -23,7 +23,7 @@ const mapPokeInfo = (info: IPokeInfo): IMappedPokeInfo => {
     }
 
     if (held_items) {
-        mappedInfo.items = held_items.map(({item}) => item.name).join(', ')
+        mappedInfo.items = held_items?.map(({item}) => item.name).join(', ')
     }
 
     return mappedInfo
